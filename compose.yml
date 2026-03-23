@@ -12,7 +12,6 @@ services:
       - user-service
       - product-service
       - order-service
-      - inventory-service
       - payment-service
     networks:
       - micronet
@@ -79,26 +78,6 @@ services:
     networks:
       - micronet
 
-  inventory-service:
-    build: ./inventory-service
-    env_file:
-      - .env
-    depends_on:
-      - inventory-db
-    networks:
-      - micronet
-
-  inventory-db:
-    image: postgres:16-alpine
-    environment:
-      POSTGRES_DB: inventory_db
-      POSTGRES_USER: commerceManager
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    volumes:
-      - inventory-data:/var/lib/postgresql/data
-    networks:
-      - micronet
-
   payment-service:
     build: ./payment-service
     env_file:
@@ -136,5 +115,4 @@ volumes:
   user-data:
   product-data:
   order-data:
-  inventory-data:
   payment-data:
