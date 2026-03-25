@@ -21,6 +21,9 @@ public class UserEntity {
     @Column(nullable = false)
     private int age;
 
+    @Column(nullable = false)
+    private Double walletAmount;
+
     public UserEntity(){}
 
     public UserEntity(String username, String password, String email, int age) {
@@ -48,5 +51,21 @@ public class UserEntity {
 
     public int getAge() {
         return age;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

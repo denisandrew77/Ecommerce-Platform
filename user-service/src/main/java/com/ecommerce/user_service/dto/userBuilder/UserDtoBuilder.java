@@ -35,6 +35,11 @@ public class UserDtoBuilder implements BaseUserDtoBuilder {
     }
 
     @Override
+    public UserDtoBuilder setWalletAmount(Double walletAmount) {
+        this.userDto.setWalletAmount(walletAmount)
+    }
+
+    @Override
     public UserDto getUser() {
         return this.userDto;
     }
