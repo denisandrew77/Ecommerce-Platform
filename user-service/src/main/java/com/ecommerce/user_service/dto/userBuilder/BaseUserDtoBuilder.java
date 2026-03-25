@@ -7,5 +7,6 @@ public interface BaseUserDtoBuilder {
     BaseUserDtoBuilder setEmail(String email);
     BaseUserDtoBuilder setPassword(String password);
     BaseUserDtoBuilder setAge(int age);
+    BaseUserDtoBuilder setWalletAmount(Double walletAmount);
     UserDto getUser();
 }
