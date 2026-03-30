@@ -82,6 +82,8 @@ services:
 
   payment-service:
     build: ./payment-service
+    ports:
+      - "8083:8083"
     env_file:
       - .env
     depends_on:
