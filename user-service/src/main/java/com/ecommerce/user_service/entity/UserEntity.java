@@ -53,19 +53,7 @@ public class UserEntity {
         return age;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public Double getWalletAmount() {
+        return walletAmount;
     }
 }
