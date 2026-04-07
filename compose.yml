@@ -20,8 +20,6 @@ services:
     build: ./user-service
     env_file:
       - .env
-    ports:
-      - "8085:8085"
     depends_on:
       - user-db
     networks:
@@ -40,8 +38,6 @@ services:
 
   product-service:
     build: ./product-service
-    ports:
-      - "8084:8084"
     env_file:
       - .env
     depends_on:
@@ -62,8 +58,6 @@ services:
 
   order-service:
     build: ./order-service
-    ports:
-      - "8082:8082"
     env_file:
       - .env
     depends_on:
@@ -84,8 +78,6 @@ services:
 
   payment-service:
     build: ./payment-service
-    ports:
-      - "8083:8083"
     env_file:
       - .env
     depends_on:
