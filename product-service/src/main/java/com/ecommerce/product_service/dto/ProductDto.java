@@ -7,8 +7,6 @@ public class ProductDto {
     private  Double price;
     private  Double availableQuantity;
 
-    public ProductDto() {}
-
     public ProductDto(String name, String description, Double price, Double availableQuantity, String category) {
         this.name = name;
         this.description = description;

@@ -1,11 +1,17 @@
 package com.ecommerce.product_service.controller;
 
-import com.ecommerce.product_service.dto.ProductDto;
-import com.ecommerce.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ecommerce.product_service.dto.ProductDto;
+import com.ecommerce.product_service.dto.responseEntity.ProductState;
+import com.ecommerce.product_service.service.ProductService;
 
 @RestController
 public class ProductController {
@@ -14,21 +20,25 @@ public class ProductController {
     private ProductService productService;
 
     @PostMapping("/product/create")
-    public ResponseEntity<String> save(@RequestBody ProductDto product) {
+    public ResponseEntity<ProductState> save(@RequestBody ProductDto product) {
         if(productService.addNewProduct(product)){
-            return new ResponseEntity<>("Product Created", HttpStatus.CREATED);
+            ProductState state = new ProductState(true, product.getName()+" has been created");
+            return new ResponseEntity<>(state, HttpStatus.CREATED);
         }else{
-            return new ResponseEntity<>("Product Not Created", HttpStatus.BAD_REQUEST);
+            ProductState state = new ProductState(false, product.getName()+" has already been created");
+            return new ResponseEntity<>(state, HttpStatus.BAD_REQUEST);
         }
     }
 
     @GetMapping("/product/{productName}/verifyAvailability/{requestedQuantity}")
-    public ResponseEntity<String> verifyAvailability(@PathVariable String productName, @PathVariable Integer requestedQuantity) {
-        if(productService.verifyProductAndAvailableQuantity(productName, requestedQuantity)){
-            return new ResponseEntity<>("Product:"+ productName +" is available", HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>("Product:"+ productName +" is not available", HttpStatus.BAD_REQUEST);
-        }
+    public ResponseEntity<ProductDto> getProduct(@PathVariable String productName, @PathVariable Integer requestedQuantity) {
+        productService.verifyProductAndAvailableQuantity(productName, requestedQuantity);
+        return new ResponseEntity<>(productService.getProductByName(productName), HttpStatus.OK);
+    }
+
+    @PostMapping("/product/{productName}/updateQuantity/{requestedQuantity}")
+    public ResponseEntity<ProductState> updateQuantity(@PathVariable String productName, @PathVariable Integer requestedQuantity) {
+        productService.updateProductQuantity(productName, requestedQuantity);
+        return new ResponseEntity<>(new ProductState(true, productName+" has been updated"), HttpStatus.OK);
     }
 }
