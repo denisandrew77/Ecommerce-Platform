@@ -1,15 +1,16 @@
 package com.ecommerce.user_service.service;
 
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.ecommerce.user_service.dto.UserDto;
 import com.ecommerce.user_service.dto.userBuilder.UserDtoBuilder;
 import com.ecommerce.user_service.entity.UserEntity;
 import com.ecommerce.user_service.exceptionHandling.exception.UserAlreadyExistsException;
 import com.ecommerce.user_service.exceptionHandling.exception.UserNotFoundException;
 import com.ecommerce.user_service.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -37,7 +38,7 @@ public class UserService {
         if(foundUser.isPresent()){
             UserEntity user = foundUser.get();
             UserDtoBuilder userBuilder = new UserDtoBuilder();
-            UserDto userToBeSent = userBuilder.setUsername(user.getUsername()).setEmail(user.getEmail()).setAge(user.getAge()).getUser();
+            UserDto userToBeSent = userBuilder.setId(user.getId()).setUsername(user.getUsername()).setEmail(user.getEmail()).setAge(user.getAge()).setWalletAmount(user.getWalletAmount()).getUser();
             return userToBeSent;
         }
         else throw new UserNotFoundException("User not found");

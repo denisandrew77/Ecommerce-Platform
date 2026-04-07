@@ -17,6 +17,12 @@ public class UserDtoBuilder implements BaseUserDtoBuilder {
     }
 
     @Override
+    public UserDtoBuilder setId(Integer id) {
+        this.userDto.setId(id);
+        return this;
+    }
+
+    @Override
     public UserDtoBuilder setEmail(String email) {
         this.userDto.setEmail(email);
         return this;
@@ -36,7 +42,8 @@ public class UserDtoBuilder implements BaseUserDtoBuilder {
 
     @Override
     public UserDtoBuilder setWalletAmount(Double walletAmount) {
-        this.userDto.setWalletAmount(walletAmount)
+        this.userDto.setWalletAmount(walletAmount);
+        return this;
     }
 
     @Override
