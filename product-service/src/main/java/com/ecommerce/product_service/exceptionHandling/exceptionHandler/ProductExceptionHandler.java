@@ -1,13 +1,14 @@
 package com.ecommerce.product_service.exceptionHandling.exceptionHandler;
 
-import com.ecommerce.product_service.exceptionHandling.exception.LowQuantityException;
-import com.ecommerce.product_service.exceptionHandling.exception.ProductAlreadyExistsException;
-import com.ecommerce.product_service.exceptionHandling.exception.ProductNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.ecommerce.product_service.exceptionHandling.exception.LowQuantityException;
+import com.ecommerce.product_service.exceptionHandling.exception.ProductAlreadyExistsException;
+import com.ecommerce.product_service.exceptionHandling.exception.ProductNotFoundException;
 
 @RestControllerAdvice
 public class ProductExceptionHandler extends ResponseEntityExceptionHandler {
@@ -24,7 +25,7 @@ public class ProductExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(LowQuantityException.class)
     public ResponseEntity<String> handleLowQuantityException(LowQuantityException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(ProductAlreadyExistsException.class)
